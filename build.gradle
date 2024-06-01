@@ -1,0 +1,31 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+
+version = "0.0.1"
+group = "io.github.ultimaphoenix.gradleversionplugin"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+gradlePlugin {
+    website = 'https://github.com/UltimaPhoenix/gradle-version-plugin'
+    vcsUrl = 'https://github.com/UltimaPhoenix/gradle-version-plugin'
+    description = "A plugin that manages and updates the project version in GitHub Actions."
+    plugins {
+        versionPlugin {
+            id = "io.github.ultimaphoenix.gradle-version-plugin"
+            implementationClass = "io.github.ultimaphoenix.gradleversionplugin.VersionPlugin"
+        }
+    }
+}
+
