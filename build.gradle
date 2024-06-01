@@ -26,6 +26,7 @@ gradlePlugin {
         versionPlugin {
             id = "io.github.ultimaphoenix.gradle-version-plugin"
             displayName = 'Gradle Version Plugin for GitHub Actions'
+            description = "A plugin that manages and updates the project version in GitHub Actions."
             implementationClass = "io.github.ultimaphoenix.gradleversionplugin.VersionPlugin"
             tags = ['github', 'action', 'version', 'semver', 'release']
         }
