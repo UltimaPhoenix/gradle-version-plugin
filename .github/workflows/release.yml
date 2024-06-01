@@ -32,4 +32,4 @@ jobs:
           echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
 
       - name: Publish Application
-        run: gradle publish
+        run: gradle publishPlugins
