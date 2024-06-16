@@ -9,19 +9,20 @@ enum UpdateType {
 
 class VersionPlugin implements Plugin<Project> {
 
-    private void updateProjectVersion(String newVersion) {
+    private static void updateProjectVersion(Project project, String newVersion) {
         File buildFile = project.file("build.gradle")
         String content = buildFile.text
 
-        content = content.replaceAll(/^version *= *['"].*['"]/, 'version = "' + newVersion + '"')
+        content = content.replaceAll(/(?m)^version\s*=\s*['"].*['"]/, 'version = "' + newVersion + '"')
 
+        println content
         buildFile.text = content
 
         println "Version updated to: $newVersion"
     }
 
-    private String computeNewVersion(UpdateType updateType) {
-        def versionParts = project.version.split('\\.')
+    private static String computeNewVersion(String currentVersion, UpdateType updateType) {
+        def versionParts = currentVersion.split('\\.')
         def major = versionParts[0].toInteger()
         def minor = versionParts[1].toInteger()
         def patch = versionParts[2].toInteger()
@@ -52,7 +53,7 @@ class VersionPlugin implements Plugin<Project> {
             description = "Update the project version to the specified."
             doLast {
                 String newVersion = project.findProperty("newVersion") ?: '1.0.0' // Default version if not specified
-                updateProjectVersion(newVersion)
+                updateProjectVersion(project, newVersion)
             }
         }
 
@@ -60,8 +61,8 @@ class VersionPlugin implements Plugin<Project> {
             group = "Release"
             description = "Bump the Major release of the project."
             doLast {
-                String newVersion = computeNewVersion(UpdateType.MAJOR)
-                updateProjectVersion(newVersion)
+                String newVersion = computeNewVersion("${project.version}", UpdateType.MAJOR)
+                updateProjectVersion(project, newVersion)
             }
         }
 
@@ -69,8 +70,8 @@ class VersionPlugin implements Plugin<Project> {
             group = "Release"
             description = "Bump the Minor release of the project."
             doLast {
-                String newVersion = computeNewVersion(UpdateType.MINOR)
-                updateProjectVersion(newVersion)
+                String newVersion = computeNewVersion("${project.version}", UpdateType.MINOR)
+                updateProjectVersion(project, newVersion)
             }
         }
 
@@ -78,8 +79,8 @@ class VersionPlugin implements Plugin<Project> {
             group = "Release"
             description = "Bump the Patch release of the project."
             doLast {
-                String newVersion = computeNewVersion(UpdateType.PATCH)
-                updateProjectVersion(newVersion)
+                String newVersion = computeNewVersion("${project.version}", UpdateType.PATCH)
+                updateProjectVersion(project, newVersion)
             }
         }
 
