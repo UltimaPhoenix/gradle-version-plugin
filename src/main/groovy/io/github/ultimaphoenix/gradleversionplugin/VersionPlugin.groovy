@@ -27,11 +27,21 @@ class VersionPlugin implements Plugin<Project> {
         def patch = versionParts[2].toInteger()
         def suffix = versionParts.size() > 3 ? versionParts[3] : ""
 
-        (major, minor, patch) = switch (updateType) {
-            case UpdateType.MAJOR -> [major + 1, 0, 0]
-            case UpdateType.MINOR -> [major, minor + 1, 0]
-            case UpdateType.PATCH -> [major, minor, patch + 1]
+        switch (updateType) {
+            case UpdateType.MAJOR:
+                major += 1
+                minor = 0
+                patch = 0
+                break
+            case UpdateType.MINOR:
+                minor += 1
+                patch = 0
+                break
+            case UpdateType.PATCH:
+                patch += 1
+                break
         }
+
 
         return suffix ? "${major}.${minor}.${patch}.${suffix}" : "${major}.${minor}.${patch}"
     }
