@@ -15,6 +15,7 @@ It is designed to be used with GitHub Actions to automatically generate pull req
 
 - Gradle 8.5 or higher
 - Java 21 or higher
+- `version` declared in your `build.gradle` (e.g. `version = 1.2.3`)
 
 ## Installation
 
