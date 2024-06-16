@@ -1,5 +1,4 @@
 # Gradle Version Plugin (gradle-version-plugin)
-=============== 
 A Gradle plugin to manage project versions easily and automatically. 
 This plugin allows you to update the project version, increment major, minor, and patch versions, and print the current project version.
 It is designed to be used with GitHub Actions to automatically generate pull requests after version updates.
