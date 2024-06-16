@@ -20,7 +20,7 @@ class VersionPlugin implements Plugin<Project> {
         println "Version updated to: $newVersion"
     }
 
-    private String computeVersion(UpdateType updateType) {
+    private String computeNewVersion(UpdateType updateType) {
         def versionParts = project.version.split('\\.')
         def major = versionParts[0].toInteger()
         def minor = versionParts[1].toInteger()
